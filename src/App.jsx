@@ -42,6 +42,7 @@ function App() {
             });
             return;
         } else {
+            isValid = true;
             if (
                 user.name === "" ||
                 user.age === "" ||
@@ -49,28 +50,34 @@ function App() {
                 user.gender === ""
             ) {
                 alert("Vui lòng điền đầy đủ thông tin");
-                return;
+                isValid = false;
             }
             if (user.age <= 0 || user.age > 200) {
                 alert("Tuổi lớn hơn 0");
+                isValid = false;
             }
-            setUsers([
-                ...users,
-                {
-                    ...user,
-                    name: user.name.replace("<", "&lt;").replace(">", "&gt;"),
-                    address: user.address
-                        .replace("<", "&lt;")
-                        .replace(">", "&gt;"),
-                },
-            ]);
-            setUser({
-                id: v4(),
-                name: "",
-                age: "",
-                address: "",
-                gender: "",
-            });
+
+            if (isValid) {
+                setUsers([
+                    ...users,
+                    {
+                        ...user,
+                        name: user.name
+                            .replace("<", "&lt;")
+                            .replace(">", "&gt;"),
+                        address: user.address
+                            .replace("<", "&lt;")
+                            .replace(">", "&gt;"),
+                    },
+                ]);
+                setUser({
+                    id: v4(),
+                    name: "",
+                    age: "",
+                    address: "",
+                    gender: "",
+                });
+            }
         }
     };
 
