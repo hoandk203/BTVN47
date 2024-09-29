@@ -26,7 +26,21 @@ function App() {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log(user.id);
+        let isValid = true;
+        if (
+            user.name === "" ||
+            user.age === "" ||
+            user.address === "" ||
+            user.gender === ""
+        ) {
+            alert("Vui lòng điền đầy đủ thông tin");
+            isValid = false;
+        }
+        if (user.age <= 0 || user.age > 200) {
+            alert("Tuổi lớn hơn 0");
+            isValid = false;
+        }
+
         if (
             users.find((u) => {
                 return user.id === u.id;
@@ -42,21 +56,6 @@ function App() {
             });
             return;
         } else {
-            isValid = true;
-            if (
-                user.name === "" ||
-                user.age === "" ||
-                user.address === "" ||
-                user.gender === ""
-            ) {
-                alert("Vui lòng điền đầy đủ thông tin");
-                isValid = false;
-            }
-            if (user.age <= 0 || user.age > 200) {
-                alert("Tuổi lớn hơn 0");
-                isValid = false;
-            }
-
             if (isValid) {
                 setUsers([
                     ...users,
